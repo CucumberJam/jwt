@@ -1,6 +1,7 @@
 import userService from "../service/user-service.js";
 import asyncHandler from 'express-async-handler';
 import UserModel from "../models/user-model.js";
+import ItemModel from "../models/item-model.js";
 
 class UserController {
     // @desc Register User
@@ -91,11 +92,8 @@ class UserController {
     // @route GET/api/users
     // @access Public
     getAll = asyncHandler(async(req, res, next) => {
-        try{
-            res.status(200).json(['user1', 'user2']);
-        }catch (e) {
-            console.log(e);
-        }
+        const items = await UserModel.find();
+        res.status(200).json(items);
     });
 }
 export default new UserController();
