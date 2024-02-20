@@ -58,13 +58,7 @@ class UserController {
     // @route GET/api/users/login
     // @access Private
     get = asyncHandler(async(req, res, next)=>{
-        const {name, email} = await UserModel.findById(req.user._id);
-
-        res.status(200).json({
-            id: req.user._id,
-            name,
-            email
-        });
+        res.status(200).json(req.user);
     });
     async logout(req, res, next){
         try{

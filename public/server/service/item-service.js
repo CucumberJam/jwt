@@ -10,9 +10,8 @@ class ItemService{
            }
            return item;
         }
-        checkExistByAuthUser = asyncHandler(async(id, userId, res)=>{
+        checkExistByAuthUser = asyncHandler(async(id, user, res)=>{
             const item = await this.checkExist(id, res);
-            const user = await UserModel.findById(userId);
 
             // check for user
             if(!user){
@@ -21,7 +20,7 @@ class ItemService{
             }
 
             // make sure the logged user matches those one who updating item:
-            if(item.user.toString() !== userId.toString()){
+            if(item.user.toString() !== user._id.toString()){
                 res.status(401);
                 throw new Error('User not authorized');
             }

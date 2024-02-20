@@ -16,7 +16,7 @@ class ItemController{
     // @route GET/api/items/:id
     // @access Private
     get = asyncHandler(async(req, res) => {
-        const item = await ItemService.checkExistByAuthUser(req.params.id, req.user._id, res);
+        const item = await ItemService.checkExistByAuthUser(req.params.id, req.user, res);
         const itemDto = new ItemDto(item);
         res.status(200).json(itemDto);
     });
@@ -41,7 +41,7 @@ class ItemController{
     // @route PUT/api/items/:id
     // @access Private
     update = asyncHandler(async(req, res) => {
-        await ItemService.checkExistByAuthUser(req.params.id, req.user._id, res);
+        await ItemService.checkExistByAuthUser(req.params.id, req.user, res);
 
         const updated = await ItemModel.findByIdAndUpdate(
             req.params.id,
@@ -57,7 +57,7 @@ class ItemController{
     // @route DELETE/api/items/:id
     // @access Private
     remove = asyncHandler(async(req, res) => {
-        const item = await ItemService.checkExistByAuthUser(req.params.id, req.user._id, res);
+        const item = await ItemService.checkExistByAuthUser(req.params.id, req.user, res);
 
         await ItemModel.deleteOne({_id: item._id});
         const itemDto = new ItemDto(item);

@@ -13,7 +13,7 @@ const protect = asyncHandler(async(req, res, next)=> {
             const decoded = jwt.verify(token, process.env.JWT_REFRESH_SECRET);
 
             // get user from the token:
-            req.user = await UserModel.findById(decoded.id).select('-password'); //without passwordhash
+            req.user = await UserModel.findById(decoded.id).select('-password'); //without hashpassword
 
             next();
         }catch (e) {
